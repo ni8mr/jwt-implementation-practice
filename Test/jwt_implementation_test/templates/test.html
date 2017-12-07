@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Test html</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">Testing</div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var credentials = {
+            username: "reza",
+            password: "reza@1234"
+        };
+
+        $.post("http://localhost:8080/api-token-auth/", credentials, function (auth) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/bank-registers/",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + auth.token);
+                },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
